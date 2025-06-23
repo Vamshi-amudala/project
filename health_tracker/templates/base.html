@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Tracker - {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Health Tracker</div>
+            {% if session.user_id %}
+            <div class="nav-links">
+                <a href="{{ url_for('dashboard') }}">Dashboard</a>
+                <a href="{{ url_for('track') }}">Track Health</a>
+                <a href="{{ url_for('logout') }}">Logout</a>
+            </div>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </div>
+    <div id="loading-overlay">
+        <div class="spinner"></div>
+    </div>
+    <script>
+        // Fade-in page transition
+        window.addEventListener('DOMContentLoaded', function() {
+            document.body.classList.add('page-loaded');
+        });
+        // Hide loading spinner after page load
+        window.onload = function() {
+            document.getElementById('loading-overlay').style.opacity = 0;
+            setTimeout(function() {
+                document.getElementById('loading-overlay').style.display = 'none';
+            }, 500);
+        };
+    </script>
+</body>
+</html>

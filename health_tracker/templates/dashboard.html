@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    <h2>Health Dashboard</h2>
+    <div class="recent-entries">
+        <h3>Recent Entries</h3>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Weight</th>
+                        <th>Steps</th>
+                        <th>Sleep</th>
+                        <th>Water</th>
+                        <th>Mood</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in records %}
+                    <tr>
+                        <td>{{ record[0] }}</td>
+                        <td>{{ record[1] }} kg</td>
+                        <td>{{ record[2] }}</td>
+                        <td>{{ record[3] }} hrs</td>
+                        <td>{{ record[4] }} glasses</td>
+                        <td>{{ record[5] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
